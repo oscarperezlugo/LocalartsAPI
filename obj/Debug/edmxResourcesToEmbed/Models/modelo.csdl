@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="localartsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="localartsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="comentario" EntityType="localartsModel.comentario" />
+    <EntitySet Name="persona" EntityType="localartsModel.persona" />
+    <EntitySet Name="post" EntityType="localartsModel.post" />
+    <AssociationSet Name="FK_comentario_post" Association="localartsModel.FK_comentario_post">
+      <End Role="post" EntitySet="post" />
+      <End Role="comentario" EntitySet="comentario" />
+    </AssociationSet>
+    <EntitySet Name="tipo_usuario" EntityType="localartsModel.tipo_usuario" />
+    <EntitySet Name="usuario" EntityType="localartsModel.usuario" />
+    <AssociationSet Name="FK_usuario_persona" Association="localartsModel.FK_usuario_persona">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_post_usuario" Association="localartsModel.FK_post_usuario">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="post" EntitySet="post" />
+    </AssociationSet>
+    <AssociationSet Name="FK_usuario_tipo_usuario" Association="localartsModel.FK_usuario_tipo_usuario">
+      <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <EntitySet Name="tipo_post" EntityType="localartsModel.tipo_post" />
+    <AssociationSet Name="FK_post_tipo_post" Association="localartsModel.FK_post_tipo_post">
+      <End Role="tipo_post" EntitySet="tipo_post" />
+      <End Role="post" EntitySet="post" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="comentario">
+    <Key>
+      <PropertyRef Name="id_comentario" />
+    </Key>
+    <Property Name="id_comentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_post" Type="Int32" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="guid" Type="Guid" />
+    <NavigationProperty Name="post" Relationship="localartsModel.FK_comentario_post" FromRole="comentario" ToRole="post" />
+  </EntityType>
+  <EntityType Name="persona">
+    <Key>
+      <PropertyRef Name="id_persona" />
+    </Key>
+    <Property Name="id_persona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="localizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="guid" Type="Guid" />
+    <NavigationProperty Name="usuario" Relationship="localartsModel.FK_usuario_persona" FromRole="persona" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="id_post" />
+    </Key>
+    <Property Name="id_post" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="id_tipo_post" Type="Int32" Nullable="false" />
+    <Property Name="foto_url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+    <Property Name="localizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="titulo_post" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_inicio" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="fecha_cierre" Type="DateTime" Precision="3" />
+    <Property Name="likes" Type="Int32" Nullable="false" />
+    <Property Name="guid" Type="Guid" />
+    <NavigationProperty Name="comentario" Relationship="localartsModel.FK_comentario_post" FromRole="post" ToRole="comentario" />
+    <NavigationProperty Name="usuario" Relationship="localartsModel.FK_post_usuario" FromRole="post" ToRole="usuario" />
+    <NavigationProperty Name="tipo_post" Relationship="localartsModel.FK_post_tipo_post" FromRole="post" ToRole="tipo_post" />
+  </EntityType>
+  <Association Name="FK_comentario_post">
+    <End Type="localartsModel.post" Role="post" Multiplicity="0..1" />
+    <End Type="localartsModel.comentario" Role="comentario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="post">
+        <PropertyRef Name="id_post" />
+      </Principal>
+      <Dependent Role="comentario">
+        <PropertyRef Name="id_post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tipo_usuario">
+    <Key>
+      <PropertyRef Name="id_tipo_usuario" />
+    </Key>
+    <Property Name="id_tipo_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="usuario" Relationship="localartsModel.FK_usuario_tipo_usuario" FromRole="tipo_usuario" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_persona" Type="Int32" Nullable="false" />
+    <Property Name="id_tipo_usuario" Type="Int32" Nullable="false" />
+    <Property Name="nombre_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="arte_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="guid" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="persona" Relationship="localartsModel.FK_usuario_persona" FromRole="usuario" ToRole="persona" />
+    <NavigationProperty Name="post" Relationship="localartsModel.FK_post_usuario" FromRole="usuario" ToRole="post" />
+    <NavigationProperty Name="tipo_usuario" Relationship="localartsModel.FK_usuario_tipo_usuario" FromRole="usuario" ToRole="tipo_usuario" />
+  </EntityType>
+  <Association Name="FK_usuario_persona">
+    <End Type="localartsModel.persona" Role="persona" Multiplicity="1" />
+    <End Type="localartsModel.usuario" Role="usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="id_persona" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="id_persona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_post_usuario">
+    <End Type="localartsModel.usuario" Role="usuario" Multiplicity="1" />
+    <End Type="localartsModel.post" Role="post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_usuario_tipo_usuario">
+    <End Type="localartsModel.tipo_usuario" Role="tipo_usuario" Multiplicity="1" />
+    <End Type="localartsModel.usuario" Role="usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_usuario">
+        <PropertyRef Name="id_tipo_usuario" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="id_tipo_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tipo_post">
+    <Key>
+      <PropertyRef Name="id_tipo_post" />
+    </Key>
+    <Property Name="id_tipo_post" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descricion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="post" Relationship="localartsModel.FK_post_tipo_post" FromRole="tipo_post" ToRole="post" />
+  </EntityType>
+  <Association Name="FK_post_tipo_post">
+    <End Type="localartsModel.tipo_post" Role="tipo_post" Multiplicity="1" />
+    <End Type="localartsModel.post" Role="post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_post">
+        <PropertyRef Name="id_tipo_post" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="id_tipo_post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="localartsModelStoreContainer" CdmEntityContainer="localartsEntities">
+    <EntitySetMapping Name="comentario">
+      <EntityTypeMapping TypeName="localartsModel.comentario">
+        <MappingFragment StoreEntitySet="comentario">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_post" ColumnName="id_post" />
+          <ScalarProperty Name="id_comentario" ColumnName="id_comentario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="persona">
+      <EntityTypeMapping TypeName="localartsModel.persona">
+        <MappingFragment StoreEntitySet="persona">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="localizacion" ColumnName="localizacion" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="post">
+      <EntityTypeMapping TypeName="localartsModel.post">
+        <MappingFragment StoreEntitySet="post">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="likes" ColumnName="likes" />
+          <ScalarProperty Name="fecha_cierre" ColumnName="fecha_cierre" />
+          <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="titulo_post" ColumnName="titulo_post" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="localizacion" ColumnName="localizacion" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="foto_url" ColumnName="foto_url" />
+          <ScalarProperty Name="id_tipo_post" ColumnName="id_tipo_post" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_post" ColumnName="id_post" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipo_usuario">
+      <EntityTypeMapping TypeName="localartsModel.tipo_usuario">
+        <MappingFragment StoreEntitySet="tipo_usuario">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="localartsModel.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="guid" ColumnName="guid" />
+          <ScalarProperty Name="arte_tipo" ColumnName="arte_tipo" />
+          <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+          <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+          <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
+          <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipo_post">
+      <EntityTypeMapping TypeName="localartsModel.tipo_post">
+        <MappingFragment StoreEntitySet="tipo_post">
+          <ScalarProperty Name="descricion" ColumnName="descricion" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="id_tipo_post" ColumnName="id_tipo_post" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

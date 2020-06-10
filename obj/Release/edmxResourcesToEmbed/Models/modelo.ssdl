@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="localartsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="comentario">
+    <Key>
+      <PropertyRef Name="id_comentario" />
+    </Key>
+    <Property Name="id_comentario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_post" Type="int" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="persona">
+    <Key>
+      <PropertyRef Name="id_persona" />
+    </Key>
+    <Property Name="id_persona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="50" />
+    <Property Name="correo" Type="nvarchar" MaxLength="50" />
+    <Property Name="localizacion" Type="nvarchar" MaxLength="50" />
+    <Property Name="guid" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="id_post" />
+    </Key>
+    <Property Name="id_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="id_tipo_post" Type="int" Nullable="false" />
+    <Property Name="foto_url" Type="nvarchar" MaxLength="50" />
+    <Property Name="precio" Type="float" Nullable="false" />
+    <Property Name="localizacion" Type="nvarchar" MaxLength="50" />
+    <Property Name="ciudad" Type="nvarchar" MaxLength="50" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="50" />
+    <Property Name="titulo_post" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="fecha_inicio" Type="datetime" Nullable="false" />
+    <Property Name="fecha_cierre" Type="datetime" />
+    <Property Name="likes" Type="int" Nullable="false" />
+    <Property Name="guid" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="tipo_post">
+    <Key>
+      <PropertyRef Name="id_tipo_post" />
+    </Key>
+    <Property Name="id_tipo_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="descricion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tipo_usuario">
+    <Key>
+      <PropertyRef Name="id_tipo_usuario" />
+    </Key>
+    <Property Name="id_tipo_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_persona" Type="int" Nullable="false" />
+    <Property Name="id_tipo_usuario" Type="int" Nullable="false" />
+    <Property Name="nombre_usuario" Type="nvarchar" MaxLength="50" />
+    <Property Name="contrasena" Type="nvarchar" MaxLength="50" />
+    <Property Name="arte_tipo" Type="nvarchar" MaxLength="50" />
+    <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_comentario_post">
+    <End Role="post" Type="Self.post" Multiplicity="0..1" />
+    <End Role="comentario" Type="Self.comentario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="post">
+        <PropertyRef Name="id_post" />
+      </Principal>
+      <Dependent Role="comentario">
+        <PropertyRef Name="id_post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_post_tipo_post">
+    <End Role="tipo_post" Type="Self.tipo_post" Multiplicity="1" />
+    <End Role="post" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_post">
+        <PropertyRef Name="id_tipo_post" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="id_tipo_post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_post_usuario">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+    <End Role="post" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_usuario_persona">
+    <End Role="persona" Type="Self.persona" Multiplicity="1" />
+    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="id_persona" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="id_persona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_usuario_tipo_usuario">
+    <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="1" />
+    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_usuario">
+        <PropertyRef Name="id_tipo_usuario" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="id_tipo_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="localartsModelStoreContainer">
+    <EntitySet Name="comentario" EntityType="Self.comentario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="persona" EntityType="Self.persona" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tipo_post" EntityType="Self.tipo_post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tipo_usuario" EntityType="Self.tipo_usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_comentario_post" Association="Self.FK_comentario_post">
+      <End Role="post" EntitySet="post" />
+      <End Role="comentario" EntitySet="comentario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_post_tipo_post" Association="Self.FK_post_tipo_post">
+      <End Role="tipo_post" EntitySet="tipo_post" />
+      <End Role="post" EntitySet="post" />
+    </AssociationSet>
+    <AssociationSet Name="FK_post_usuario" Association="Self.FK_post_usuario">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="post" EntitySet="post" />
+    </AssociationSet>
+    <AssociationSet Name="FK_usuario_persona" Association="Self.FK_usuario_persona">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_usuario_tipo_usuario" Association="Self.FK_usuario_tipo_usuario">
+      <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
